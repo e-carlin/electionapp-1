@@ -1,5 +1,4 @@
-This is a website I helped make for a database management class. The site 
-allows on campus clubs to hold elections for positions within the club.
+This is a website I worked on for my database managment class (CS455). The website is intended to allow on campus clubs to easily and quickly hold elections. As of December 1, 2016 the website was hosted on an EC2 instance, ec2-52-40-34-90.us-west-2.compute.amazonaws.com . The website was created using Ruby on Rails and is backed up by an SQLite database.
 
 
 I contributed to the project under my school github account, "ecarlin-ups".
