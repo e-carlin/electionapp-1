@@ -62,6 +62,22 @@ class CandidatesController < ApplicationController
     end
   end
 
+  def upvote
+    #Get all of this users prvious votes
+    previousVotes = Vote.where(user_id: params[:user_id])
+    previousVotes.each do |prevVote|
+      #If this user has already voted for someone in this position
+      if(prevVote[:position_id] == params[:position_id].to_i && prevVote[:user_id] == params[:user_id].to_i)
+        return redirect_to(user_election_position_candidates_path, :notice => 'You have already voted for a candidate in this position.')
+      end
+    end
+    #The user hasn't already voted for someone in this position so save their vote
+      @candidate = Candidate.find(params[:id])
+      vote = @candidate.votes.new(candidate_id: params[:id], user_id: params[:user_id], position_id: params[:position_id], election_id: params[:election_id])
+      vote.save
+      redirect_to(user_election_position_candidates_path, :notice => "Your vote has been recorded.")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_candidate
@@ -70,7 +86,7 @@ class CandidatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def candidate_params
-      params.fetch(:candidate, {}).permit(:name, :biography, :position_id)
+      params.fetch(:candidate, {}).permit(:name, :biography, :position_id, :id)
 
     end
 end

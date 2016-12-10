@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161118012730) do
+ActiveRecord::Schema.define(version: 20161128055925) do
 
   create_table "candidates", force: :cascade do |t|
     t.integer  "position_id", null: false
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20161118012730) do
 
   create_table "elections", force: :cascade do |t|
     t.text     "description"
-    t.text     "start_date"
-    t.text     "cloes_date"
+    t.datetime "start_date"
+    t.datetime "close_date"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.text     "title"
@@ -54,6 +54,19 @@ ActiveRecord::Schema.define(version: 20161118012730) do
     t.string   "remember_token",     limit: 128, null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "election_id",  null: false
+    t.integer  "candidate_id", null: false
+    t.integer  "position_id",  null: false
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["candidate_id"], name: "index_votes_on_candidate_id"
+    t.index ["election_id"], name: "index_votes_on_election_id"
+    t.index ["position_id"], name: "index_votes_on_position_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
 end

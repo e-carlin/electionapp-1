@@ -1,19 +1,21 @@
-<h1>Users</h1>
+<h1>Users allowed to vote in <%= Election.find(params[:election_id]).title%></h1>
+<p id="notice"><%= notice %></p>
 <table class="table table-bordered">
   <thead>
     <tr class="active">
-      <th>Uid</th>
       <th>Email</th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
       <tr class="active">
-        <td><%=user.id%></td>
         <td><%= user.email%></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Add users', add_users_to_election_path(params[:user_id]) %>
+<%= link_to 'Add users', add_users_to_election_path(user_id: params[:user_id], election_id: params[:election_id]), :type => "button", :class=> 'btn btn-success' %>
+<div></div>
+<br>
+<%= link_to 'Add from CSV', add_users_to_election_from_csv_path(user_id: params[:user_id], election_id: params[:election_id]), :type => "button", :class=> 'btn btn-warning' %>
